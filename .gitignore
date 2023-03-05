@@ -161,4 +161,4 @@ cython_debug/
 
 .DS_Store
 
-data/filtered_cytosines_freq.tsv
+data/*.tsv
