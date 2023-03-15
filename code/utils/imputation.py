@@ -3,6 +3,8 @@ import pandas as pd
 # from missforest.miss_forest import MissForest
 import missForest
 from tqdm import tqdm
+from .binary_search import binary_search
+
 
 def impute(X: np.ndarray, head=None, method="zeroes"):
     header = None
@@ -56,3 +58,18 @@ def impute(X: np.ndarray, head=None, method="zeroes"):
         # res = np.concatenate((X[:, 0], X_imputed), axis=1)
         # np.savetxt('../data/missForest_imputed_cytosines.tsv', res, delimiter='\t', fmt='%s', header=header)
         # return res
+
+
+def impute_row(chromosomes_arr, positions_arr, chr, pos, data_values):
+    i = binary_search(chromosomes_arr, positions_arr, chr, pos - 500, "ge")
+    j = binary_search(chromosomes_arr, positions_arr, chr, pos + 500, "le")
+    if i > j:
+        neighbours = []
+        if chromosomes_arr[i] == chr:
+            neighbours.append(data_values[i][1:])
+        if chromosomes_arr[j] == chr:
+            neighbours.append(data_values[j][1:])
+        if len(neighbours) == 0:
+            return "AAA error", True
+        return np.mean(neighbours, axis=0), True
+    return data_values[i:j + 1][:, 1:].mean(axis=0), False
