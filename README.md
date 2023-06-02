@@ -5,6 +5,16 @@ Authors:
 * Roman Chernyatchik
 * Emiliia Lekhman
 
+## Usage
+
+```
+python3 code/inpute_horvath_features.py <file_path>
+```
+
+The script imputes Horvath's markers and saves them in data/horvath_features.tsv.
+The input file should contain markers as rows and samples as columns. The mathylation values must be in range from 0 to 100. 
+The output file contains only Horvath's markers, which are ranged from 0 to 1.
+
 ## Abstract
 
 DNA methylation, an essential epigenetic modification, plays a crucial role in gene reg-
