@@ -11,33 +11,27 @@ Authors:
 python3 code/inpute_horvath_features.py <file_path>
 ```
 
-The script imputes Horvath's markers and saves them in data/horvath_features.tsv.
+The script imputes Horvath's markers and saves them in `data/horvath_features.tsv`.
 The input file should contain markers as rows and samples as columns. The mathylation values must be in range from 0 to 100. 
 The output file contains only Horvath's markers, which are ranged from 0 to 1.
 
 ## Abstract
 
-DNA methylation, an essential epigenetic modification, plays a crucial role in gene reg-
-ulation and various biological processes. However, DNA methylation datasets often
-contain missing values, which present challenges for subsequent analysis. Missing val-
-ues reduce the accuracy of methylation clocks, which are predictive models utilized to
-estimate biological age based on DNA methylation patterns. Accordingly, this thesis fo-
-cuses on suggesting and implementing an imputation algorithm to address the problem
+DNA methylation, an essential epigenetic modification, plays a crucial role in gene regulation and various biological processes. However, DNA methylation datasets often
+contain missing values, which present challenges for subsequent analysis. Missing values reduce the accuracy of methylation clocks, which are predictive models utilized to
+estimate biological age based on DNA methylation patterns. Accordingly, this thesis focuses on suggesting and implementing an imputation algorithm to address the problem
 of missing values.
 
 Four imputation algorithms, named nbp, methyLImp, cytosine mean, and people
-mean, were evaluated for missing value imputation. MethyLImp consistently outper-
-formed other methods in terms of accuracy and efficiency, offering a robust solution for
+mean, were evaluated for missing value imputation. MethyLImp consistently outperformed other methods in terms of accuracy and efficiency, offering a robust solution for
 restoring missing values.
 
-Furthermore, methylation clocks, which predict chronological age based on DNA methy-
-lation patterns, were estimated using combination algorithms such as cytosine mean +
+Furthermore, methylation clocks, which predict chronological age based on DNA methylation patterns, were estimated using combination algorithms such as cytosine mean +
 nbp, people mean + nbp, nbp + nbp, and methyLImp + nbp. MethyLImp + nbp exhibited
 superior performance, emphasizing the significance of incorporating methyLImp in the
 imputation process for accurate age estimation.
 
-By conducting multiple launches of the evaluation process, the study ensured the robust-
-ness and consistency of the methylation clocks with usage of combination algorithms,
+By conducting multiple launches of the evaluation process, the study ensured the robustness and consistency of the methylation clocks with usage of combination algorithms,
 enhancing the reliability of the results.
 
 The proposed algorithm offers a robust DNA methylation imputation approach, enabling
@@ -67,14 +61,13 @@ The pipeline:
 
 ![picture](pictures/1_bench_rmse.png)
 
-The results indicate that the nbp method outperforms the people mean approach by a sig-
-nificant margin. Furthermore, the results suggest that the cytosine mean method slightly
+The results indicate that the nbp method outperforms the people mean approach by a significant margin. Furthermore, the results suggest that the cytosine mean method slightly
 outperforms methyLImp. However, it should be noted that the efficacy of the cytosine
-mean method is highly dependent on the dataset and the specific markers where miss-
-ing values occur. For instance, if the dataset comprises 1 healthy control and 20 cancer
-cases, and an attempt is made to impute a missing value that belongs to the healthy con-
-trol group, the cytosine mean method may yield less accurate results, particularly if the
+mean method is highly dependent on the dataset and the specific markers where missing values occur. For instance, if the dataset comprises 1 healthy control and 20 cancer
+cases, and an attempt is made to impute a missing value that belongs to the healthy control group, the cytosine mean method may yield less accurate results, particularly if the
 missing value being imputed exhibits a strong correlation with cancer.
+
+The results can be obtained by running the jupyter notebook `code/benchmark_table_rrbs.ipynb`.
 
 ### Microarray benchmark
 The pipeline is the same as the previous one.
@@ -82,6 +75,8 @@ The pipeline is the same as the previous one.
 ![picture](pictures/2_bench_rmse.png)
 
 The methyLImp algorithm outperforms the cytosine mean method.
+
+The results can be obtained by running the jupyter notebook `code/benchmark_table_microarray.ipynb`.
 
 ### Combination algorithm
 The pipeline:
@@ -97,6 +92,8 @@ The pipeline:
 
 It is evident that the combined approach of methyLImp+nbp yields better performance compared to nbp+nbp. However, it is noteworthy that for a small percentage of missing values, the two approaches demonstrate similar outcomes.
 
+The results can be obtained by running the jupyter notebook `code/combo_errors.ipynb`.
+
 ### Horvath's clock on microarray
 The pipeline:
 1. Only Horvath's markers are taken into consideration
@@ -109,6 +106,8 @@ The pipeline:
 ![picture](pictures/horvath_combo.png)
 
 The results demonstrate that the combination algorithm methyLImp + nbp yields the most favorable overall performance in terms of the RMSE and MAE metrics when employed for methylation clock estimation. Notably, the observed differences between the combination algorithms are relatively minor.
+
+The results can be obtained by running the jupyter notebook `code/horvath_microarrays.ipynb`.
 
 ## Conclusion
 
