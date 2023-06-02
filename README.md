@@ -55,7 +55,7 @@ The pipeline:
 4. RMSE is calculated for all setups
 5. Repeated 20 times
 
-![picture](1_bench_rmse.png)
+![picture](pictures/1_bench_rmse.png)
 
 The results indicate that the nbp method outperforms the people mean approach by a sig-
 nificant margin. Furthermore, the results suggest that the cytosine mean method slightly
@@ -69,7 +69,7 @@ missing value being imputed exhibits a strong correlation with cancer.
 ### Microarray benchmark
 The pipeline is the same as the previous one.
 
-![picture](2_bench_rmse.png)
+![picture](pictures/2_bench_rmse.png)
 
 The methyLImp algorithm outperforms the cytosine mean method.
 
@@ -82,8 +82,8 @@ The pipeline:
 5. Features are imputed using nbp
 6. Repeated 10 times
 
-![picture](3_bench_rrbs.png)
-![picture](3_bench_microarray.png)
+![picture](pictures/3_bench_rrbs.png)
+![picture](pictures/3_bench_microarray.png)
 
 It is evident that the combined approach of methyLImp+nbp yields better performance compared to nbp+nbp. However, it is noteworthy that for a small percentage of missing values, the two approaches demonstrate similar outcomes.
 
@@ -96,7 +96,7 @@ The pipeline:
 5. RMSE and MAE calculated
 6. Repeated 10 times
 
-![picture](horvath_combo.png)
+![picture](pictures/horvath_combo.png)
 
 The results demonstrate that the combination algorithm methyLImp + nbp yields the most favorable overall performance in terms of the RMSE and MAE metrics when employed for methylation clock estimation. Notably, the observed differences between the combination algorithms are relatively minor.
 

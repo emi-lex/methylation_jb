@@ -74,13 +74,12 @@ def get_features_with_zeroes(imputed_data: pd.DataFrame, markers: np.ndarray, ma
         elif ind1 < len(positions_arr) and positions_arr[ind1] == pos + 1:
             features.append(methylations[ind1])
         else:
-            # both chr.pos and chr.(pos+1) don't exist in our data, so this feature needs to be imputed by n_bp
             features.append(np.zeros(methylations.shape[1]))
     
     return np.array(features).T / 100
 
 
-def get_features_with_methiLImp(data: pd.DataFrame, markers: np.ndarray, map_data: pd.DataFrame, eps: int=500):
+def get_features_with_methiLImp(data: pd.DataFrame, markers: np.ndarray, map_data: pd.DataFrame, eps_methyLImp: int=3000, eps_nbp: int=300):
     """
     @param imputed_data: imputed data
     @param markers: horvath markers
@@ -90,7 +89,6 @@ def get_features_with_methiLImp(data: pd.DataFrame, markers: np.ndarray, map_dat
     features = []
     get_chr, get_pos = get_marker_to_chr_and_pos(map_data)
     chromosome_coords = get_chromosome_coords(data.chromosome)
-    # methylations = data[data.columns[2:]].values
     positions_arr = data.position.values
     feature_masks = []
     for marker in markers:
@@ -103,18 +101,15 @@ def get_features_with_methiLImp(data: pd.DataFrame, markers: np.ndarray, map_dat
         mask = np.zeros(data.shape[0], dtype=bool)
         if ind1 < len(positions_arr) and positions_arr[ind1] == pos:
             if ind1 + 1 < data.shape[0] and positions_arr[ind1 + 1] == pos + 1:
-                # features.append(methylations[ind1:ind1 + 2].mean(axis=0))
                 mask[ind1:ind1 + 2] = True
             else:
-                # features.append(methylations[ind1])
                 mask[ind1] = True
         elif ind1 < len(positions_arr) and positions_arr[ind1] == pos + 1:
-            # features.append(methylations[ind1])
             mask[ind1] = True
         else:
             # both chr.pos and chr.(pos+1) don't exist in our data, so this feature needs to be imputed by n_bp
             # features.append(impute_row(pos, eps, imputed_data, i, j))
-            left, right = find_slice(pos, eps, positions_arr[i:j])
+            left, right = find_slice(pos, eps_nbp, positions_arr[i:j])
             left += i
             right += i
             mask[left:right] = True
