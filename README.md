@@ -87,8 +87,8 @@ The pipeline:
 5. Features are imputed using nbp
 6. Repeated 10 times
 
-![picture](pictures/3_bench_rrbs_new.png)
-![picture](pictures/3_bench_microarray_new.png)
+![picture](pictures/3_bench_rrbs_new.jpeg)
+![picture](pictures/3_bench_microarray_new.jpeg)
 
 It is evident that the combined approach of methyLImp+nbp yields better performance compared to nbp+nbp. However, it is noteworthy that for a small percentage of missing values, the two approaches demonstrate similar outcomes.
 
