@@ -115,6 +115,29 @@ def create_benchmark_table(*args, **kwargs):
     return benchmark_table.drop(benchmark_table.columns[-4:], axis=1), benchmark_table.drop(benchmark_table.columns[1:5], axis=1)
 
 
+def data_for_boxplots(*args, **kwargs):
+    """
+    @params the same as for run_experiments
+    """
+    results = run_experiments(*args, **kwargs)
+    data = {
+        "nans percent": [],
+        "imputation method": [],
+        "rmse": [],
+        "mae": [],
+    }
+    N_iter = args[1]
+    methods = ["methyLImp", "nbp", "cytosine mean", "people mean"]
+    for i in range(len(results["nans percent"])):
+        data["nans percent"] += [results["nans percent"][i]] * len(methods) * N_iter
+        for imputation_method in methods:
+            data["imputation method"] += [imputation_method] * N_iter
+            for metric in ["rmse", "mae"]:
+                data[metric] += results[imputation_method + " " + metric][i]
+
+    return pd.DataFrame(data)
+
+
 def run_experiments(filename, N_iter, eps_methyLImp, eps_nbp, p_arr=[0.0005, 0.001, 0.005, 0.01], p_impute=1e-3, verbose=1, gen_nm=gen_nans_mask):
     """
     @param filename: path to the file with data
